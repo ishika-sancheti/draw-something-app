@@ -1,8 +1,95 @@
 .app {
   min-height: 100vh;
-  background-image: url('/gallery-wall.png');
-  background-size:cover;
-  background-position: center;
-  background-attachment: fixed;
-  /* padding: 3rem 1rem; */
+  overflow: hidden;
+}
+
+.gallery-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.gallery-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 0;
+}
+
+.canvas-page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 90px 20px;
+  z-index: 2;
+}
+
+.btn {
+  font-family: 'Cormorant Garamond', serif;
+  padding: 9px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2a20;
+  background: #f8f4ea;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn:disabled {
+  color: #8a8578;
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.toolbar-checkbox {
+  font-family: 'Cormorant Garamond', serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #2f2010;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.toolbar-checkbox input[type="checkbox"] {
+  accent-color: #2f2010;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.canvas-slot {
+  position: absolute;
+}
+
+.drawing-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
