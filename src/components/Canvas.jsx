@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { dft } from '../utils/fourier';
 import '../App.css'; 
-export default function Canvas() {
+export default function Canvas({ frameRect }) {
     const canvasRef = useRef(null);
     const pointsRef = useRef([]);
     const fourierRef = useRef(null);
@@ -20,10 +20,10 @@ export default function Canvas() {
         
         const ctx = canvas.getContext('2d');
         canvas.width = 700;
-        canvas.height = 500;
+        canvas.height = 444;
         
         const clear = () => {
-            ctx.fillStyle = '#fff';
+            ctx.fillStyle = '#f4e6d3';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         };
         clear();
@@ -33,8 +33,8 @@ export default function Canvas() {
         const getPos = (e) => {
             const rect = canvas.getBoundingClientRect();
             return {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
+                x: (e.clientX - rect.left) * (canvas.width / rect.width),
+                y: (e.clientY - rect.top) * (canvas.height / rect.height)
             };
         };
 
@@ -174,7 +174,7 @@ export default function Canvas() {
             const useCount = showFirstOnly ? 1 : Math.min(100, X.length);
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#fff';
+            ctx.fillStyle = '#f4e6d3';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Draw original shape faintly
@@ -256,56 +256,57 @@ export default function Canvas() {
         if (canvas) {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#fff';
+            ctx.fillStyle = '#f4e6d3';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
     };
 
     return (
-        <div style={{ textAlign: 'center', padding: '20px' }}>
-            <div style={{ marginBottom: '1rem' }}>
-                <button 
-                    onClick={handleClear} 
-                    style={{ 
-                        padding: '8px 16px', 
-                        marginRight: '8px',
-                        cursor: 'pointer'
-                    }}
+        <div className="canvas-page">
+            <div className="toolbar"
+            style={frameRect ? {
+                left: `${frameRect.left + frameRect.width / 2}%`,
+                top: `${frameRect.top + frameRect.height + 1.5}%`
+                } : { visibility: 'hidden' }}
+            >
+                <button
+                    onClick={handleClear}
+                    className="btn btn-clear"
                 >
                     Clear
                 </button>
-                <button 
-                    onClick={() => setIsAnimating(v => !v)} 
-                    style={{ 
-                        padding: '8px 16px', 
-                        marginRight: '8px',
-                        cursor: 'pointer'
-                    }}
+                <button
+                    onClick={() => setIsAnimating(v => !v)}
+                    className="btn btn-playpause"
                     disabled={!fourierRef.current}
                 >
                     {isAnimating ? 'Pause' : 'Play'}
                 </button>
-                <label style={{ marginLeft: '12px', cursor: 'pointer' }}>
-                    <input 
-                        type="checkbox" 
-                        checked={showFirstOnly} 
+                <label className="toolbar-checkbox">
+                    <input
+                        type="checkbox"
+                        checked={showFirstOnly}
                         onChange={(e) => setShowFirstOnly(e.target.checked)}
                     />
                     {' '}Show only first circle
                 </label>
             </div>
-            <canvas
-                ref={canvasRef}
-                style={{ 
-                    border: '2px solid #333', 
-                    display: 'block', 
-                    margin: '0 auto',
-                    touchAction: 'none',
-                    cursor: 'crosshair',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                    backgroundColor: '#fff'
-                }}
-            />
+
+            <div
+                className="canvas-slot"
+                style={frameRect ? {
+                    left: `${frameRect.left}%`,
+                    top: `${frameRect.top}%`,
+                    width: `${frameRect.width}%`,
+                    height: `${frameRect.height}%`
+                } : { visibility: 'hidden' }}
+            >
+                <canvas
+                    ref={canvasRef}
+                    className="drawing-canvas"
+                    style={{ touchAction: 'none' }}
+                />
+            </div>
         </div>
     );
 }
