@@ -118,40 +118,6 @@ npm run lint
 - Release the mouse / lift your finger
 - Watch the Fourier animation recreate your drawing
 
-## Learning Concepts Demonstrated
-
-This project showcases:
-
-- Discrete Fourier Transform (DFT)
-- Signal decomposition
-- Mathematical visualization
-- HTML Canvas drawing
-- React state management
-- Animation with `requestAnimationFrame`
-
-## Future Improvements
-
-Potential enhancements:
-
-- Clear canvas button
-- Pause / resume animation controls
-- Adjustable number of epicycles
-- Color customization
-- Save drawings as images
-- Undo functionality
-- Mobile UI improvements
-
-## Why This Project?
-
-This project blends:
-
-- frontend engineering
-- mathematics
-- interactivity
-- visualization
-
-It demonstrates both programming skills and problem-solving through creative implementation.
-
 ## Contributing
 
 Contributions are welcome.
