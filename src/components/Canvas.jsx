@@ -12,7 +12,7 @@ export default function Canvas({ frameRect }) {
     const [isDrawing, setIsDrawing] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showFirstOnly, setShowFirstOnly] = useState(false);
-
+    const [hasDrawn, setHasDrawn] = useState(false);
     // Drawing setup
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -41,6 +41,7 @@ export default function Canvas({ frameRect }) {
         const start = (e) => {
             drawing = true;
             setIsDrawing(true);
+            setHasDrawn(true);
             pointsRef.current = [];
             pathRef.current = [];
             timeRef.current = 0;
@@ -251,6 +252,7 @@ export default function Canvas({ frameRect }) {
         timeRef.current = 0;
         pathRef.current = [];
         setIsAnimating(false);
+        setHasDrawn(false);
         
         const canvas = canvasRef.current;
         if (canvas) {
@@ -306,6 +308,12 @@ export default function Canvas({ frameRect }) {
                     className="drawing-canvas"
                     style={{ touchAction: 'none' }}
                 />
+                {!hasDrawn && (
+                    <p className='canvas-placeholder'>
+                        Draw a shape in a single stroke, without lifting your mouse or finger.
+                    </p>
+                )
+                }
             </div>
         </div>
     );
