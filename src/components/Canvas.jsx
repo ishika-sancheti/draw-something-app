@@ -82,7 +82,7 @@ export default function Canvas() {
                 console.log('Fourier coefficients:', fourierRef.current.coefficients.length);
                 console.log('Centroid:', fourierRef.current.centroid);
                 
-                // Start animation automatically
+                // start animation automatically
                 setIsAnimating(true);
             }
         };
@@ -263,7 +263,6 @@ export default function Canvas() {
 
     return (
         <div style={{ textAlign: 'center', padding: '20px' }}>
-            <h2>Draw on the canvas to see Fourier Transform magic!</h2>
             <div style={{ marginBottom: '1rem' }}>
                 <button 
                     onClick={handleClear} 
@@ -307,9 +306,6 @@ export default function Canvas() {
                     backgroundColor: '#fff'
                 }}
             />
-            <p style={{ fontSize: '14px', color: '#666', marginTop: '12px' }}>
-                Draw a shape in a single continuous motion and watch it animate!
-            </p>
         </div>
     );
 }
