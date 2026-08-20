@@ -1,9 +1,10 @@
 import Canvas from './components/Canvas';
+import './App.css';
 
 function App(){
   return (
-    <div>
-      <h1 style={ { textAlign:'center'} }>Draw Something</h1>
+    <div className='app'>
+      {/* <h1 style={ { textAlign:'center'} }>Draw Something</h1> */}
       <Canvas />                        
     </div>
   );
@@ -11,5 +12,4 @@ function App(){
 
 export default App;
 
-//div creates a section in your webpage
 //canvas is the child component
