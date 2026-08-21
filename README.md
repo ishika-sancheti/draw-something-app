@@ -1,154 +1,67 @@
-# Draw Something App
+# Draw Something
 
-An interactive drawing application built with React that lets users sketch freehand drawings and visualizes them using Fourier Transform animation.
+A canvas drawing app that turns your sketch into an animated [Fourier series](https://en.wikipedia.org/wiki/Fourier_series) — draw any shape in one continuous stroke, and watch it get retraced by a chain of rotating epicycles (the same trick behind those "drawing with circles" videos).
 
-## Overview
+**Live demo:** [draw-something-ft.netlify.app](https://draw-something-ft.netlify.app/)
 
-**Draw Something App** is a fun interactive web application where users can draw any shape or doodle on a canvas, and the app reconstructs that drawing using animated Fourier epicycles.
+<p align="center">
+  <img src="draw-something-screenshots/screenshot-1.webp" alt="Empty canvas, ready to draw" width="49%" />
+  <img src="draw-something-screenshots/screenshot-2.webp" alt="A drawn shape retraced by animated epicycles" width="49%" />
+</p>
 
-This project combines frontend development with mathematical visualization, making it both creative and educational.
+## How it works
 
-## Features
+1. Draw any closed or open shape on the canvas in a single continuous motion.
+2. On release, your stroke's points are converted into a complex-valued signal and run through a [discrete Fourier transform](https://youtu.be/spUNpyF58BY?si=LR2QE6eJetzkNfoa).
+3. The resulting frequency components are rendered as a chain of rotating circles (epicycles) — the tip of the chain retraces your original drawing.
+4. Use **Pause/Play** to stop and resume the animation, and **Show only first circle** to see just the dominant frequency component in isolation.
 
-- Freehand drawing canvas
-- Mouse and touch support
-- Real-time drawing capture
-- Fourier Transform-based shape reconstruction
-- Animated epicycle visualization
-- Responsive interaction
-- Automatic animation playback after drawing
+## Tech stack
 
-## How It Works
+- [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- HTML5 Canvas for drawing and rendering
+- A custom DFT implementation (`src/utils/fourier.js`)
+- Plain CSS — no UI framework
 
-1. Draw any shape on the canvas.
-2. The app captures the drawn points.
-3. A **Discrete Fourier Transform (DFT)** is applied to the drawing coordinates.
-4. Fourier coefficients are generated and sorted by amplitude.
-5. Animated circles (epicycles) reconstruct the original drawing path.
-
-This creates a visual demonstration of how complex shapes can be represented as sums of rotating vectors.
-
-## Tech Stack
-
-- **React**
-- **Vite**
-- **JavaScript**
-- **HTML5 Canvas API**
-- **CSS**
-
-## Project Structure
-
-```text
-draw-something-app/
-├── src/
-│   ├── App.jsx
-│   ├── App.css
-│   ├── main.jsx
-│   ├── components/
-│   │   └── Canvas.jsx
-│   └── utils/
-│       └── fourier.js
-├── package.json
-├── vite.config.js
-└── index.html
-```
-
-## Installation
-
-### Clone the Repository
+## Running locally
 
 ```bash
 git clone https://github.com/ishika-sancheti/draw-something-app.git
-```
-
-### Navigate to the Project
-
-```bash
 cd draw-something-app
-```
-
-### Install Dependencies
-
-```bash
 npm install
-```
-
-### Run Development Server
-
-```bash
 npm run dev
 ```
 
-The application will be available at:
+Then open the local URL printed in your terminal (typically `http://localhost:5173`).
 
-```text
-http://localhost:5173
+## Project structure
+
+```
+draw-something-app/
+├── public/
+│   └── gallery-wall.png      # background artwork
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── App.css
+│   ├── index.css
+│   ├── components/
+│   │   └── Canvas.jsx        # drawing surface, toolbar, animation loop
+│   └── utils/
+│       └── fourier.js        # discrete Fourier transform
+├── index.html
+├── package.json
+└── vite.config.js
 ```
 
-## Available Scripts
-
-### Start Development Server
-
-```bash
-npm run dev
-```
-
-### Build for Production
+## Building for production
 
 ```bash
 npm run build
 ```
 
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-### Run Linting
-
-```bash
-npm run lint
-```
-
-## Usage
-
-- Open the application in your browser
-- Draw any shape using your mouse or touchscreen
-- Release the mouse / lift your finger
-- Watch the Fourier animation recreate your drawing
-
-## Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-
-```bash
-git checkout -b feature-name
-```
-
-3. Commit changes
-
-```bash
-git commit -m "Add feature"
-```
-
-4. Push to GitHub
-
-```bash
-git push origin feature-name
-```
-
-5. Open a Pull Request
+Outputs a production build to `dist/`, ready to deploy to any static host (this project is deployed on [Netlify](https://www.netlify.com/)).
 
 ## License
 
-MIT License
-
-## Author
-
-**Ishika Sancheti**
-
-GitHub: https://github.com/ishika-sancheti
+MIT
